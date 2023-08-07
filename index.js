@@ -1,31 +1,31 @@
-const form = document.getElementById("form");
-const webhookInput = document.getElementById("webhook");
-const messageInput = document.getElementById("message");
+const axios = require("axios");
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3000;
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
+app.use(express.json());
+app.use(express.static("static"));
 
-    const webhook = webhookInput.value.trim();
+app.post("/send", (req, res) => {
+    const webhook = req.body.webhook;
+
     const message = {
-       content:  messageInput.value.trim(),
-    }
+        content: req.body.message,
+    };
 
-    fetch(webhook, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(message)
-    })
+    axios.post(webhook, message)
     .then(response => {
-        if (response.ok) {
-            console.log("Message sent successfully");
-            messageInput.value = "";
-        } else {
-            console.error("Error sending message:", response.statusText);
-        }
+        // console.log(`Message sent successfully: "${req.body.message}"`);
+        // ^ uncomment if you want logging
+
+        res.json({ "Status": "Sent" });
     })
     .catch(error => {
         console.error("Error sending message:", error);
+        res.status(500).json({ "Status": "Error" });
     });
+});
+
+app.listen(port, () => {
+    console.log(`App is running at http://localhost:${port}`);
 });
