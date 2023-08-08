@@ -2,8 +2,14 @@ const form = document.getElementById("form");
 const webhookInput = document.getElementById("webhook");
 const messageInput = document.getElementById("message");
 
+let sentMessages = [];
+
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    if (messageInput.value.trim() === "") {
+        return;
+    }
 
     const message = {
        message:  messageInput.value.trim(),
@@ -19,8 +25,21 @@ form.addEventListener("submit", (event) => {
     })
     .then(response => {
         messageInput.value = "";
+        sentMessages.push(messageInput.value.trim());
+        new Alert({
+            type: "success",
+            message: "Message Sent Succesfully!", 
+            expires: true,
+            duration: 3,
+        })
     })
     .catch(error => {
         console.error("Error sending message:", error);
+        new Alert({
+            type: "error",
+            message: "Message Failed To Send",
+            expires: true,
+            duration: 3,
+        })
     });
 });

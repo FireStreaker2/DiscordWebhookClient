@@ -18,14 +18,22 @@
         <title>DiscordWebhookClient</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link href="/index.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@bjnstnkvc/alert/lib/Alert.min.js"></script>
     </head>
 
     <body>
-        <form id="form">
-            <input placeholder="Webhook" id="webhook" />
-            <input placeholder="Message" id="message" />
-            <button type="submit">Submit</button>
-        </form>
+        <div id="container">
+            <h1>DWC</h1>
+            <form id="form" autocomplete="off">
+                <input placeholder="Webhook" id="webhook" />
+                <input placeholder="Message" id="message" />
+                <button type="submit">Submit</button>
+            </form>
+
+            <footer>
+                <a href="https://github.com/FireStreaker2/DiscordWebhookClient" target="_blank">GitHub</a>
+            </footer>
+        </div>
 
         <script src="/index.js"></script>
     </body>
