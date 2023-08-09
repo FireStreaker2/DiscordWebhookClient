@@ -48,6 +48,16 @@ input {
     width: 60%;
 }
 
+#webhook {
+    -moz-text-security: circle;
+    -webkit-text-security: circle;
+}
+
+#webhook:focus {
+    -moz-text-security: none;
+    -webkit-text-security: none;
+}
+
 button {
     cursor: pointer;
     color: white;

@@ -24,20 +24,31 @@ form.addEventListener("submit", (event) => {
         body: JSON.stringify(message)
     })
     .then(response => {
+        const status = response.status;
         messageInput.value = "";
-        sentMessages.push(messageInput.value.trim());
-        new Alert({
-            type: "success",
-            message: "Message Sent Succesfully!", 
-            expires: true,
-            duration: 3,
-        })
+
+        if (status === 200) {
+            sentMessages.push(messageInput.value.trim());
+            new Alert({
+                type: "success",
+                message: "Message Sent Succesfully!", 
+                expires: true,
+                duration: 3,
+            })
+        } else {
+            new Alert({
+                type: "error",
+                message: "Messaged Failed To Send",
+                expires: true,
+                duration: 3,
+            })
+        }
     })
     .catch(error => {
         console.error("Error sending message:", error);
         new Alert({
             type: "error",
-            message: "Message Failed To Send",
+            message: "Request Timed Out",
             expires: true,
             duration: 3,
         })
